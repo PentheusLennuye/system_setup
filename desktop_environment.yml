@@ -1,0 +1,7 @@
+---
+# file: desktop_environment.yml
+- hosts: desktop_environment
+  roles:
+    - common
+    - desktop_environment
+    - docker_host

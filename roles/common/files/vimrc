@@ -1,0 +1,14 @@
+set encoding=utf8
+set bg =dark
+set number
+set ruler
+autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
+autocmd Filetype python setlocal tw=79 ts=4 sw=4 softtabstop=4 shiftround autoindent expandtab
+nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
+nnoremap <C-J> <C-W><C-J>
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+let g:solarized_termtrans = 1
+let g:vim_markdown_folding_disabled = 1
+colorscheme solarized

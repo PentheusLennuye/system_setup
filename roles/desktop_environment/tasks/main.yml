@@ -1,0 +1,144 @@
+---
+- name: Install Microsoft GPG key
+  become: true
+  ansible.builtin.shell: >
+    wget -O- https://packages.microsoft.com/keys/microsoft.asc |
+    gpg --dearmor | tee /usr/share/keyrings/microsoft.gpg
+  args:
+    creates: /usr/share/keyrings/microsoft.gpg
+    warn: false
+
+- name: Ensure Microsoft GPG key is readable by all
+  become: true
+  ansible.builtin.file:
+    path: /usr/share/keyrings/microsoft.gpg
+    mode: u+r,g+r,o+r
+
+- name: Set up VS Code repository
+  become: true
+  ansible.builtin.shell: >
+    echo 
+    "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg]
+    https://packages.microsoft.com/repos/code stable main" |
+    tee /etc/apt/sources.list.d/vscode.list > /dev/null
+  args:
+    creates: /etc/apt/source.list.d/vscode.list
+
+- name: Install Google GPG key
+  become: true
+  ansible.builtin.shell: >
+    curl -fSsL https://dl.google.com/linux/linux_signing_key.pub |
+    gpg --dearmor | sudo tee /usr/share/keyrings/google-chrome.gpg > /dev/null
+  args:
+    creates: /usr/share/keyrings/google-chrome.gpg
+    warn: false
+
+- name: Ensure Google GPG key is readable by all
+  become: true
+  ansible.builtin.file:
+    path: /usr/share/keyrings/google-chrome.gpg
+    mode: u+r,g+r,o+r
+
+- name: Set up Google repository
+  become: true
+  ansible.builtin.shell: >
+    echo
+    "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg]
+    http://dl.google.com/linux/chrome/deb/ stable main" |
+    tee /etc/apt/sources.list.d/google-chrome.list > /dev/null
+  args:
+    creates: /etc/apt/source.list.d/google-chrome.list
+
+- name: Update apt after sources setup
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Ensure development packages are installed
+  become: true
+  ansible.builtin.package:
+    name: "{{ item }}"
+  loop:
+    - texlive-full
+    - golang-go
+    - libsdl2-2.0-0
+    - libsdl2-dev
+    - libappindicator3-1
+    - nasm
+    - autoconf
+
+- name: Check if Cargo/Rust is already installed
+  ansible.builtin.shell: command -v cargo
+  register: cargo_exists
+  changed_when: false
+  ignore_errors: true
+
+- name: Ensure src directories for rust is created
+  become: true
+  ansible.builtin.file:
+    path: /usr/local/src/rust
+    state: directory
+    owner: "{{ ansible_env.USER }}"
+
+- name: Download Rust
+  when: cargo_exists is failed
+  ansible.builtin.get_url: 
+    url: https://sh.rustup.rs
+    dest: /usr/local/src/rust/sh.rustup.rs
+    mode: '0755'
+    force: true
+
+- name: Install Rust
+  when: cargo_exists is failed
+  ansible.builtin.shell: /usr/local/src/rust/sh.rustup.rs -y
+
+- name: Desktop Environment ensure nice packages are installed
+  become: true
+  ansible.builtin.package:
+    name: "{{ item }}"
+  loop:
+    - arduino
+    - i3
+    - gimp
+    - inkscape
+    - kdenlive
+    - blender
+    - flatpak
+    - firefox
+    - google-chrome-stable
+    - apt-transport-https
+    - code
+    - oneko
+    - calligra
+    - fortune
+    - texstudio
+    - fonts-powerline
+
+- name: Ensure i3 supporting packages are installed
+  become: true
+  ansible.builtin.package:
+    name: "{{ item }}"
+  loop:
+      - xbacklight
+      - brightnessctl
+      - feh
+      - fonts-font-awesome
+      - lxappearance
+      - rofi
+      - i3blocks
+      - lm-sensors
+
+- name: Ensure i3 config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/i3"
+    state: directory
+    owner: gmc
+
+- name: Copy i3 configuration files
+  ansible.builtin.copy:
+    src: "i3/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.config/i3/{{ item }}"
+    mode: '0644'
+  loop:
+    - config
+    - i3blocks.conf

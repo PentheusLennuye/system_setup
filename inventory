@@ -1,0 +1,10 @@
+[local]
+localhost ansible_connection=local
+
+[ai:children]
+
+[desktop_environment:children]
+local
+
+[k8s_admin:children]
+local

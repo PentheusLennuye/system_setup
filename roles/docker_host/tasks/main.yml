@@ -1,0 +1,42 @@
+---
+- name: Install Docker GPG key
+  become: true
+  ansible.builtin.shell: >
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg |
+    gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+  args:
+    creates: /etc/apt/keyrings/docker.gpg
+    warn: false
+
+- name: Ensure Docker GPG key is readable by all
+  become: true
+  ansible.builtin.file:
+    path: /etc/apt/keyrings/docker.gpg
+    mode: u+r,g+r,o+r
+
+- name: Set up Docker repository
+  become: true
+  ansible.builtin.shell: >
+    echo 
+    "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg]
+    https://download.docker.com/linux/ubuntu
+    "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" |
+    tee /etc/apt/sources.list.d/docker.list > /dev/null
+  args:
+    creates: /etc/apt/source.list.d/docker.list
+
+- name: Update apt after docker repo setup
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Install Docker
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin

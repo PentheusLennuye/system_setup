@@ -1,0 +1,6 @@
+---
+# file: ai.yml
+- hosts: ai
+  roles:
+    - ai
+    - common
