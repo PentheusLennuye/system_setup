@@ -121,7 +121,7 @@ bindsym $mod+a focus parent
 set $ws1 "&#xf121; Coding"
 set $ws2 "&#xf268; Internet"
 set $ws3 "&#xf001; Media"
-set $ws4 "4"
+set $ws4 "Notes"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
@@ -133,7 +133,7 @@ set $ws10 "10"
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace number $ws4
+bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace number $ws5
 bindsym $mod+6 workspace number $ws6
 bindsym $mod+7 workspace number $ws7
@@ -217,9 +217,12 @@ bindsym $mod+i exec /usr/bin/google-chrome
 assign [class="Google-chrome"] $ws2
 bindsym $mod+m exec /usr/bin/flatpak run sh.cider.Cider
 assign [class="Cider"] $ws3
+bindsym $mod+n exec /usr/bin/flatpak run net.cozic.joplin_desktop
+assign [class="Joplin"] $ws4
 
-bindsym $mod+shift+x exec i3lock -c 000011
-
+bindsym $mod+Shift+x exec i3lock -c 000011
+bindsym $mod+Shift+o exec /usr/bin/setxkbmap ca multix
+bindsym $mod+Shift+p exec /usr/bin/setxkbmap us
 
 # Screen brightness controls
 # Ensure the user is in the video group: `gpasswd -a $USER video`
