@@ -224,6 +224,9 @@ bindsym $mod+Shift+x exec i3lock -c 000011
 bindsym $mod+Shift+o exec /usr/bin/setxkbmap ca multix
 bindsym $mod+Shift+p exec /usr/bin/setxkbmap us
 
+# Pomodoro
+bindsym $mod+Control+p exec notify-send --icon=gtk-info Pomodor "Focus 25 min" && sleep 2500 && notify-send --icon=gtk-info Pomodoro "Take 5 mins"
+
 # Screen brightness controls
 # Ensure the user is in the video group: `gpasswd -a $USER video`
 bindsym XF86MonBrightnessUp exec brightnessctl s +10% # increase screen brightness
