@@ -1,0 +1,50 @@
+[
+  {
+    "command": "focusElementSideBar",
+    "accelerator": "Ctrl+0"
+  },
+  {
+    "command": "focusElementNoteList",
+    "accelerator": "Ctrl+1"
+  },
+  {
+    "command": "focusElementNoteTitle",
+    "accelerator": "Ctrl+2"
+  },
+  {
+    "command": "focusElementNoteBody",
+    "accelerator": "Ctrl+3"
+  },
+  {
+    "command": "zoomActualSize",
+    "accelerator": null
+  },
+  {
+    "command": "historyBackward",
+    "accelerator": "Ctrl+Left"
+  },
+  {
+    "command": "createNoteFromTemplate",
+    "accelerator": "Alt+Ctrl+Shift+N"
+  },
+  {
+    "command": "createNoteFromDefaultTemplate",
+    "accelerator": "Alt+Shift+N"
+  },
+  {
+    "command": "createTodoFromTemplate",
+    "accelerator": "Alt+Ctrl+Shift+T"
+  },
+  {
+    "command": "createTodoFromDefaultTemplate",
+    "accelerator": "Alt+Shift+T"
+  },
+  {
+    "command": "insertTemplate",
+    "accelerator": "Alt+Ctrl+I"
+  },
+  {
+    "command": "copyFolderID",
+    "accelerator": null
+  }
+]
