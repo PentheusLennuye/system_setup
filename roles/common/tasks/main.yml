@@ -16,53 +16,32 @@
     - curl
     - gnupg
     - software-properties-common
+    - virtualenvwrapper
 
 - name: Ensure main user is configured
   become: true
   ansible.builtin.user:
     name: "{{ ansible_env.USER }}"
     shell: /usr/bin/zsh
-    groups: "dialout,docker,video"
+    groups: "dialout,video"
     append: true
 
-- name: Remove system virtualenv
-  become: yes
-  package:
-    name: virtualenv
-    state: absent
-
-- name: Install virtualenv
-  pip:
-    name: "{{ item }}"
-    extra_args: --user
-  loop:
-    - virtualenv
-    - virtualenvwrapper
-
-- name: Ensure src directories for oh-my-zsh is created
+- name: Create the starship download directory
   become: true
   ansible.builtin.file:
-    path: /usr/local/src/oh-my-zsh
+    path: /usr/local/src/starship
     state: directory
-    owner: "{{ ansible_env.USER }}"
 
-- name: Download oh-my-zsh
-  ansible.builtin.get_url: 
-    url: https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-    dest: /usr/local/src/oh-my-zsh/install.sh
+- name: Download starship shell wrapper
+  become: true
+  ansible.builtin.get_url:
+    url: https://starship.rs/install.sh
+    dest: /usr/local/src/starship/install.sh
     mode: '0775'
 
-- name: Ensure oh-my-zsh does not start a shell at the end of install
-  ansible.builtin.lineinfile:
-    path: /usr/local/src/oh-my-zsh/install.sh
-    regexp: 'exec zsh -l'
-    state: absent
-
-- name: Install oh-my-zsh
-  ansible.builtin.shell:
-    cmd: sh -c "/usr/local/src/oh-my-zsh/install.sh"
-  args:
-    creates: "{{ ansible_env.HOME }}/.oh-my-zsh"
+- name: Install startship shell wrapper
+  become: true
+  ansible.builtin.command: /usr/local/src/starship/install.sh -y
 
 - name: Copy zshrc
   copy:

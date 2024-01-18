@@ -5,21 +5,21 @@ according to what I would like.
 
 ## Installing everything
 
-1. Ensure that the current user has sudo rights.
+1. Ensure that sudo is installed and the current user has sudo rights. Update
+   the system and reboot.
   ```sh
-  # file: /etc/sudoers.d/<username> with mod 0440
-  <username> ALL=(ALL:ALL) NOPASSWD:ALL
-  ```
-2. Ensure the system is fully updated.
-  ```sh
-  sudo apt-get update
-  sudo apt-get upgrade
-  sudo reboot
+  su -
+  TGTUSER=<username>
+  echo "$TGTUSER ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/$TGTUSER
+  chmod 600 /etc/sudoers.d/$TGTUSER
+  apt-get update
+  apt-get install -y sudo
+  apt-get upgrade
   ```
 
-3. Install ansible and fire away. Get coffee, TeX takes a long time...
+2. Install ansible and fire away. Get coffee, TeX takes a long time...
   ```sh
-  sudo apt-get install ansible
+  sudo apt-get install -y ansible
   ansible-galaxy collection install community.general
   ansible-playbook site.yml
   ```

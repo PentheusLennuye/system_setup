@@ -6,7 +6,6 @@
     gpg --dearmor | tee /usr/share/keyrings/microsoft.gpg
   args:
     creates: /usr/share/keyrings/microsoft.gpg
-    warn: false
 
 - name: Ensure Microsoft GPG key is readable by all
   become: true
@@ -31,7 +30,6 @@
     gpg --dearmor | sudo tee /usr/share/keyrings/google-chrome.gpg > /dev/null
   args:
     creates: /usr/share/keyrings/google-chrome.gpg
-    warn: false
 
 - name: Ensure Google GPG key is readable by all
   become: true

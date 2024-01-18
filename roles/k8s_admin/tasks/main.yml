@@ -6,7 +6,6 @@
     gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
   args:
     creates: /etc/apt/keyrings/kubernetes-archive-keyring.gpg
-    warn: false
 
 - name: Ensure Kubernetes GPG key is readable by all
   become: true
