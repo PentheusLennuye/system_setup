@@ -1,6 +1,6 @@
 ---
 # file: site.yml
-- import_playbook: ai.yml
+# - import_playbook: ai.yml
 - import_playbook: desktop_environment.yml
 - import_playbook: k8s_admin.yml
 

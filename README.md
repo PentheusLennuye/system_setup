@@ -9,12 +9,13 @@ according to what I would like.
    the system and reboot.
   ```sh
   su -
-  TGTUSER=<username>
-  echo "$TGTUSER ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/$TGTUSER
-  chmod 600 /etc/sudoers.d/$TGTUSER
   apt-get update
   apt-get install -y sudo
+  U=<username>
+  echo "$U ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/$U
+  chmod 600 /etc/sudoers.d/$U
   apt-get upgrade
+  reboot
   ```
 
 2. Install ansible and fire away. Get coffee, TeX takes a long time...

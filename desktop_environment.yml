@@ -4,4 +4,4 @@
   roles:
     - common
     - desktop_environment
-    - docker_host
+#    - docker_host
