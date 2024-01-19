@@ -22,6 +22,7 @@
     tee /etc/apt/sources.list.d/vscode.list > /dev/null
   args:
     creates: /etc/apt/source.list.d/vscode.list
+  changed_when: false
 
 - name: Install Google GPG key
   become: true
@@ -46,6 +47,7 @@
     tee /etc/apt/sources.list.d/google-chrome.list > /dev/null
   args:
     creates: /etc/apt/source.list.d/google-chrome.list
+  changed_when: false
 
 - name: Update apt after sources setup
   become: true
@@ -169,3 +171,21 @@
     - libxcb-xrm-dev
     - libxcb-shape0
     - libxcb-shape0-dev
+    - libglx-dev
+
+- name: Set up rice directories
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/{{ item }}"
+  loop:
+    - kitty
+    - picom
+
+- name: Set up rice
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.config/{{ item }}"
+    mode: '0644'
+  loop:
+    - kitty/kitty.conf
+    - picom/picom.conf
+    - starship.toml

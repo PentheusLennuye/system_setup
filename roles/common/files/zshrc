@@ -1,5 +1,11 @@
 export PATH=$HOME/.local/bin:$PATH
 
+# Aliases
+
+alias ls='ls --color'
+alias ll='ls -l'
+alias la='ls -la'
+
 # Python virtual environments
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
@@ -8,8 +14,8 @@ source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 # ZSH History substrings
 source $HOME/.local/bin/zsh-history-substring-search.zsh
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
 
 fortune
 

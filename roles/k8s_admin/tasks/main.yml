@@ -21,6 +21,7 @@
     tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
   args:
     creates: /etc/apt/source.list.d/kubernetes.list
+  changed_when: false
 
 - name: Update apt and install kubectl
   become: true

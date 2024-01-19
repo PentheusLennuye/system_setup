@@ -52,8 +52,16 @@
     mode: '0750'
 
 - name: Download zsh history substring search
-  ansible.builtin.get_url:
-    url: https://github.com/zsh-users/zsh-history-substring-search/blob/master/zsh-history-substring-search.zsh
+  become: yes
+  ansible.builtin.git:
+    repo: "https://github.com/zsh-users/{{ zsh_history }}.git"
+    dest: "/usr/local/src/{{ zsh_history }}"
+    update: no
+
+- name: Copy zsh-history-substring to local bin
+  ansible.builtin.copy:
+    remote_src: true
+    src: "/usr/local/src/{{ zsh_history }}/{{ zsh_history }}.zsh"
     dest: "{{ ansible_env.HOME }}/.local/bin"
     mode: '0644'
 
