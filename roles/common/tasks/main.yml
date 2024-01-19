@@ -39,9 +39,23 @@
     dest: /usr/local/src/starship/install.sh
     mode: '0775'
 
-- name: Install startship shell wrapper
+- name: Install starship shell wrapper
   become: true
   ansible.builtin.command: /usr/local/src/starship/install.sh -y
+  args:
+    creates: /usr/local/bin/starship
+
+- name: Create the local bin directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.local/bin"
+    state: directory
+    mode: '0750'
+
+- name: Download zsh history substring search
+  ansible.builtin.get_url:
+    url: https://github.com/zsh-users/zsh-history-substring-search/blob/master/zsh-history-substring-search.zsh
+    dest: "{{ ansible_env.HOME }}/.local/bin"
+    mode: '0644'
 
 - name: Copy zshrc
   copy:

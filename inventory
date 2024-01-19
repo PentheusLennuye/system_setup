@@ -1,10 +1,20 @@
-[local]
-localhost ansible_connection=local
+[laptop]
+glaucus ansible_connection=local
+
+[desktop]
+# sisyphus ansible_connection=local
 
 [ai:children]
+desktop
 
 [desktop_environment:children]
-local
+desktop
+laptop
+
+[docker_host:children]
+desktop
+laptop
 
 [k8s_admin:children]
-local
+desktop
+laptop
