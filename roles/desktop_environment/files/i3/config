@@ -242,7 +242,7 @@ bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
 # exec code
 
 # Autostart (whenever restarting i3)
-exec_always feh --bg-scale /usr/share/wallpapers/Blue_Curl/contents/images/1920x1200.jpg
+exec_always feh --bg-scale ~/Pictures/bg.jpg
 
 # Caps and Numlock indicators
 bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
