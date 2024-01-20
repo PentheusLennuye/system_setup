@@ -131,6 +131,7 @@
       - lm-sensors
       - picom
       - mesa-utils
+      - dunst
 
 - name: Ensure i3 config directory exists
   ansible.builtin.file:
