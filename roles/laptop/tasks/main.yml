@@ -1,0 +1,37 @@
+---
+- name: Install Network Manager
+  become: true
+  ansible.builtin.package:
+    name: network-manager
+  tags: network
+
+- name: Replace system network configuration for lo only
+  become: true
+  ansible.builtin.copy:
+    src: interfaces
+    dest: /etc/network/interfaces
+    mode: '0600'
+  register: newwifi
+  tags: network
+
+- name: Restart networking
+  become: true
+  ansible.builtin.command: /etc/init.d/networking restart
+  when: newwifi.changed == true
+  tags: network
+
+- name: Start networkmanager
+  become: true
+  ansible.builtin.service:
+    name: NetworkManager
+    enabled: true
+    state: started
+  tags: network
+
+- debug:
+    msg: |
+      The wifi is no longer managed by networking. Use nmcli to join nets.
+      nmcli dev wifi list
+      nmcli dev wifi connect <network> --ask
+  when: newwifi.changed == true
+  tags: network

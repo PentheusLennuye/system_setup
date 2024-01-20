@@ -4,4 +4,6 @@
   roles:
     - common
     - desktop_environment
-#    - docker_host
+- hosts: laptop
+  roles:
+    - laptop
