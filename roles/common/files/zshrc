@@ -13,6 +13,9 @@ export WORKON_HOME=$HOME/.virtualenvs
 source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 # ZSH History substrings
+HISTFILE=$HOME/.zsh_history
+SAVEHIST=1000
+SHAREHISTORY=1
 source $HOME/.local/bin/zsh-history-substring-search.zsh
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down

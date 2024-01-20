@@ -94,8 +94,8 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "&#xf121; Coding"
-set $ws2 "&#xf268; Internet"
+set $ws1 "&#xf268; Internet"
+set $ws2 "&#xf121; Coding"
 set $ws3 "&#xf001; Media"
 set $ws4 "Notes"
 set $ws5 "5"
@@ -187,10 +187,10 @@ bar {
 }
 
 # CUSTOM ---------------------------------------------------------------------
-bindsym $mod+c exec /usr/bin/code
-assign [class="Code"] $ws1
 bindsym $mod+i exec /usr/bin/google-chrome
-assign [class="Google-chrome"] $ws2
+assign [class="Google-chrome"] $ws1
+bindsym $mod+c exec /usr/bin/code
+assign [class="Code"] $ws2
 bindsym $mod+m exec /usr/bin/flatpak run sh.cider.Cider
 assign [class="Cider"] $ws3
 bindsym $mod+n exec /usr/bin/flatpak run net.cozic.joplin_desktop
