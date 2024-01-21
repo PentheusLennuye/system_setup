@@ -115,6 +115,7 @@
     - fonts-powerline
     - kitty
     - pulseaudio
+    - mplayer
 
 - name: Ensure i3 supporting packages are installed
   become: true
