@@ -1,11 +1,11 @@
 [laptop]
-glaucus ansible_connection=local
+#glaucus ansible_connection=local
 
 [desktop]
-# sisyphus ansible_connection=local
+sisyphus ansible_connection=local
 
 [ai:children]
-desktop
+#desktop
 
 [desktop_environment:children]
 desktop

@@ -152,6 +152,7 @@
 - name: Set up rice directories
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.config/{{ item }}"
+    state: directory
   loop:
     - kitty
     - picom
