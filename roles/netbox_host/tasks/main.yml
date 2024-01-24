@@ -23,7 +23,7 @@
       community.postgresql.postgresql_user:
         name: netbox
         db: netbox
-        password: '{{ lookup("env", "NETBOX_PASSWORD") }}'
+        password: '{{ lookup("env", "NETBOX_PSQL_PASSWORD") }}'
 
     - name: grant netbox db ownership
       community.postgresql.postgresql_owner:
