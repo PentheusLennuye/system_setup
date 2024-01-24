@@ -17,7 +17,7 @@ iface wlx107b44eb4fb3 inet static
 
 Don't forget to change /etc/resolv.conf as well.
 
-## Installing everything
+## Set up the Client
 
 1. Ensure that sudo is installed and the current user has sudo rights. Update
    the system and reboot.
@@ -32,10 +32,12 @@ Don't forget to change /etc/resolv.conf as well.
   reboot
   ```
 
+## Set up the Ansible Host
+
 2. Install ansible and fire away. Get coffee, TeX takes a long time...
   ```sh
   sudo apt-get install -y ansible
-  ansible-galaxy collection install community.general
+  ansible-galaxy collection install community.general community.postgresql
   ansible-playbook site.yml
   ```
 
@@ -70,6 +72,8 @@ for sd in $SUBDIRS; do
   mkdir -p roles/$ROLENAME/$sd
   touch roles/$ROLENAME/$sd/.keep
 done
+echo "---\n- name: name me\n  become: yes\n  ansible.builtin.xxx: yyy" > \
+roles/$ROLENAME/tasks/main.yml
 ```
 
 ## Visual Studio Code Setup (for Desktop Environments)

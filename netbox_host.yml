@@ -1,0 +1,7 @@
+---
+# file: netbox_host.yml
+- hosts: netbox_host
+  roles:
+    - common
+    - netbox_host
+

@@ -8,6 +8,7 @@
     - libvirt-clients
     - libvirt-daemon-system
     - virt-manager
+    - libguestfs-tools
   tags:
     - virtualhost
 

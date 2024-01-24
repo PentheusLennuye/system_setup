@@ -22,3 +22,6 @@ laptop
 [virtual_host:children]
 desktop
 
+[netbox_host]
+netboxdemo
+
