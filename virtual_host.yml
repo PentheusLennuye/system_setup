@@ -1,0 +1,6 @@
+---
+# file: virtual_host.yml
+- hosts: virtual_host
+  roles:
+    - common
+    - virtual_host

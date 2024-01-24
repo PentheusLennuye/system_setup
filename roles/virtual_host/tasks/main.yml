@@ -1,0 +1,22 @@
+---
+- name: Install virtual host packages
+  become: true
+  ansible.builtin.package:
+    name: "{{ item }}"
+  loop:
+    - qemu-system
+    - libvirt-clients
+    - libvirt-daemon-system
+    - virt-manager
+  tags:
+    - virtualhost
+
+- name: Ensure main user is in the libvirt group
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_env.USER }}"
+    shell: /usr/bin/zsh
+    groups: libvirt
+    append: true
+  tags:
+    - virtualhost

@@ -18,3 +18,7 @@ laptop
 [k8s_admin:children]
 desktop
 laptop
+
+[virtual_host:children]
+desktop
+

@@ -126,11 +126,11 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "&#xf268; Internet"
+set $ws1 "🌐 Internet"
 set $ws2 "&#xf121; Coding"
-set $ws3 "&#xf001; Media"
-set $ws4 "Notes"
-set $ws5 "5"
+set $ws3 "🎧 Media"
+set $ws4 "📓 Notes"
+set $ws5 "Virtual Machines"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
@@ -142,7 +142,7 @@ bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace number $ws5
+bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace number $ws6
 bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
@@ -227,6 +227,8 @@ bindsym $mod+m exec /usr/bin/flatpak run sh.cider.Cider
 assign [class="Cider"] $ws3
 bindsym $mod+n exec /usr/bin/flatpak run net.cozic.joplin_desktop
 assign [class="Joplin"] $ws4
+bindsym $mod+Control+v exec /usr/bin/virt-manager
+assign [class="Virt-manager"] $ws5
 
 bindsym $mod+Shift+x exec i3lock -c 000011
 bindsym $mod+Shift+o exec /usr/bin/setxkbmap ca multix

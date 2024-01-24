@@ -4,4 +4,5 @@
 - import_playbook: docker_host.yml
 - import_playbook: desktop_environment.yml
 - import_playbook: k8s_admin.yml
+- import_playbook: virtual_host.yml
 
