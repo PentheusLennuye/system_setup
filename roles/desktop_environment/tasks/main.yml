@@ -149,6 +149,15 @@
     - config
     - i3blocks.conf
 
+- name: Copy i3 helper scripts
+  ansible.builtin.copy:
+    src: "i3/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.local/bin/{{ item }}"
+    mode: '0755'
+  loop:
+    - i3lock_dpms.sh
+    - pomodoro.py
+
 - name: Set up rice directories
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.config/{{ item }}"
@@ -165,4 +174,5 @@
   loop:
     - kitty/kitty.conf
     - picom/picom.conf
+    - pomodoro.ini
     - starship.toml

@@ -1,8 +1,8 @@
 [laptop]
-#glaucus ansible_connection=local
+glaucus ansible_connection=local
 
 [desktop]
-sisyphus ansible_connection=local
+#sisyphus ansible_connection=local
 
 [ai:children]
 #desktop
@@ -21,6 +21,7 @@ laptop
 
 [virtual_host:children]
 desktop
+laptop
 
 [netbox_host]
 netboxdemo
