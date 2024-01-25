@@ -8,7 +8,7 @@ sisyphus ansible_connection=local
 debian-common
 
 [ai:children]
-desktop
+# desktop
 
 [desktop_environment:children]
 desktop

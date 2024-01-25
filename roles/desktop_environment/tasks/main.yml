@@ -159,6 +159,13 @@
     mode: '0755'
   loop:
     - i3lock_dpms.sh
+
+- name: Copy interesting personal executables
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.local/bin/{{ item }}"
+    mode: '0755'
+  loop:
     - pomodoro.py
 
 - name: Set up rice directories
