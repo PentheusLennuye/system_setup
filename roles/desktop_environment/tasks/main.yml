@@ -116,6 +116,8 @@
     - kitty
     - pulseaudio
     - mplayer
+    - xscreensaver
+    - xscreensaver-gl
 
 - name: Ensure i3 supporting packages are installed
   become: true
