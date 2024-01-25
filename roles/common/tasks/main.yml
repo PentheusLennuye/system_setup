@@ -101,3 +101,9 @@
     dest: "{{ ansible_env.HOME }}/.vimrc"
     mode: '0644'
  
+- name: install fun packages
+  become: yes
+  ansible.builtin.package:
+    name: "{{ item }}"
+  loop:
+    - fortune

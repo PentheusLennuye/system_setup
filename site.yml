@@ -1,5 +1,9 @@
 ---
 # file: site.yml
+- hosts: vm_baseline
+  roles:
+    - common
+
 - import_playbook: ai.yml
 - import_playbook: docker_host.yml
 - import_playbook: desktop_environment.yml
