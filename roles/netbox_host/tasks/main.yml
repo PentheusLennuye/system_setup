@@ -1,10 +1,26 @@
 ---
+- name: Sanity checks
+  tags:
+    - db
+    - netbox
+  block:
+    - name: Sanity check Netbox password
+      assert:
+        that:
+          - lookup('env', 'NETBOX_PSQL_PASSWORD') | length > 0
+        fail_msg: 'NETBOX_PSQL_PASSWORD is empty'
+
 - name: install postgresql
+  become: true
   ansible.builtin.package:
     name: "{{ item }}"
   loop:
     - postgresql
     - python3-psycopg2
+    - redis-server
+  tags:
+    - db
+    - netbox
 
 - name: Configure and Start Postgresql
   become: true
