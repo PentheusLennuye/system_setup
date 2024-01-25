@@ -16,7 +16,7 @@ source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=1000
-SHAREHISTORY=1
+setopt share_history
 source $HOME/.local/bin/zsh-history-substring-search.zsh
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
