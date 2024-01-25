@@ -117,7 +117,9 @@
     - pulseaudio
     - mplayer
     - xscreensaver
+    - xscreensaver-data-extra
     - xscreensaver-gl
+    - xscreensaver-gl-extra
 
 - name: Ensure i3 supporting packages are installed
   become: true
