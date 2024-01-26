@@ -1,5 +1,5 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-settings 6.06 for gmc on Thu Jan 25 19:35:59 2024.
+# Written by xscreensaver-settings 6.06 for gmc on Fri Jan 26 07:49:34 2024.
 # https://www.jwz.org/xscreensaver/
 
 timeout:	0:05:00
@@ -28,8 +28,8 @@ grabVideoFrames:    False
 chooseRandomImages: False
 imageDirectory:	
 
-mode:		random
-selected:	-1
+mode:		one
+selected:	143
 
 textMode:	url
 textLiteral:	XScreenSaver

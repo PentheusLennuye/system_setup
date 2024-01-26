@@ -4,52 +4,39 @@
     - db
     - netbox
   block:
-    - name: Sanity check Netbox password
+    - name: Sanity check netbox password
       assert:
         that:
-          - lookup('env', 'NETBOX_PSQL_PASSWORD') | length > 0
+          - nbdbpass | length > 0
         fail_msg: 'NETBOX_PSQL_PASSWORD is empty'
+    - name: Sanity check netbox version
+      assert:
+        that:
+          - nbver | length > 0
+        fail_msg: 'NETBOX_VERSION is empty'
+    - name: Sanity check netbox secret key
+      assert:
+        that:
+          - nbsecretkey | length > 0
+        fail_msg: 'NETBOX_SECRET_KEY is empty'
 
-- name: install postgresql
-  become: true
-  ansible.builtin.package:
-    name: "{{ item }}"
-  loop:
-    - postgresql
-    - python3-psycopg2
-    - redis-server
+- name: Create DBs
+  ansible.builtin.include_tasks:
+    file: db.yml
+    apply:
+      tags:
+        - db
+        - netbox
   tags:
     - db
     - netbox
 
-- name: Configure and Start Postgresql
-  become: true
-  become_user: postgres
+- name: Install and Configure Netbox
+  ansible.builtin.include_tasks:
+    file: netbox.yml
+    apply:
+      tags:
+        - netbox
   tags:
-    - db
     - netbox
-  vars:
-    ansible_ssh_pipelining: true
-  block:
-    - name: create netbox db
-      community.postgresql.postgresql_db:
-        name: netbox
 
-    - name: create netbox db user
-      community.postgresql.postgresql_user:
-        name: netbox
-        db: netbox
-        password: '{{ lookup("env", "NETBOX_PSQL_PASSWORD") }}'
-
-    - name: grant netbox db ownership
-      community.postgresql.postgresql_owner:
-        db: netbox
-        new_owner: netbox 
-
-    - name: grant public schema create access
-      community.postgresql.postgresql_privs:
-        db: netbox
-        schema: public
-        privs: CREATE
-        roles: netbox
-        objs: ALL_IN_SCHEMA

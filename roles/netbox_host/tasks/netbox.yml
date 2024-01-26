@@ -1,0 +1,78 @@
+---
+- name: install required packages
+  become: true
+  ansible.builtin.package:
+    name: "{{ item }}"
+  loop:
+    - python3-venv
+    - python3-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - libffi-dev
+    - libpq-dev
+    - libssl-dev
+    - zlib1g-dev
+
+- name: create source directory
+  become: true
+  ansible.builtin.file:
+    state: directory
+    path: /usr/local/src/netbox
+    mode: '0755'
+    owner: "{{ ansible_env.USER }}"
+
+- name: download netbox tarball
+  ansible.builtin.get_url:
+    url: "https://github.com/netbox-community/netbox/archive/refs/tags/\
+          v{{ nbver }}.tar.gz"
+    dest: /usr/local/src/netbox
+    mode: '0600'
+    force: false
+  
+- name: unarchive netbox tarball
+  become: true
+  ansible.builtin.unarchive:
+    src: "/usr/local/src/netbox/netbox-{{ nbver }}.tar.gz"
+    dest: /opt
+    creates: "/opt/netbox-{{ nbver }}"
+    remote_src: true
+
+- name: create netbox softlink
+  become: true
+  ansible.builtin.file:
+    src: "/opt/netbox-{{ nbver }}"
+    dest: /opt/netbox
+    state: link
+
+- name: create netbox system group
+  become: true
+  ansible.builtin.group:
+    name: netbox
+    system: true
+
+- name: create netbox system user
+  become: true
+  ansible.builtin.user:
+    name: netbox
+    group: netbox
+    system: true
+
+- name: recursive ownership change to netbox system user
+  become: true
+  ansible.builtin.file:
+    path: "/opt/netbox/netbox/{{ item }}"
+    state: directory
+    recurse: true
+    owner: netbox
+  loop:
+    - media
+    - reports
+    - scripts
+
+- name: configure netbox
+  become: true
+  ansible.builtin.template:
+    src: configuration.py.j2
+    dest: /opt/netbox/netbox/netbox/configuration.py
+    mode: '0644'
+

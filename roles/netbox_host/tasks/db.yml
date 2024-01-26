@@ -1,0 +1,38 @@
+---
+- name: install postgresql
+  become: true
+  ansible.builtin.package:
+    name: "{{ item }}"
+  loop:
+    - postgresql
+    - python3-psycopg2
+    - redis-server
+
+- name: Configure and Start Postgresql
+  become: true
+  become_user: postgres
+  vars:
+    ansible_ssh_pipelining: true
+  block:
+    - name: create netbox db
+      community.postgresql.postgresql_db:
+        name: netbox
+
+    - name: create netbox db user
+      community.postgresql.postgresql_user:
+        name: netbox
+        db: netbox
+        password: nbdbpass
+
+    - name: grant netbox db ownership
+      community.postgresql.postgresql_owner:
+        db: netbox
+        new_owner: netbox 
+
+    - name: grant public schema create access
+      community.postgresql.postgresql_privs:
+        db: netbox
+        schema: public
+        privs: CREATE
+        roles: netbox
+        objs: ALL_IN_SCHEMA
