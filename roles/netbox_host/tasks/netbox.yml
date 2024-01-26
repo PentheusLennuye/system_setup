@@ -79,7 +79,7 @@
 - name: run netbox upgrade script
   become: true
   ansible.builtin.command: /opt/netbox/upgrade.sh
-  when: nbupgrade|bool == true
+  when: (nbupgrade|bool == true) or (nbinit|bool == true)
 
 - name: create superuser
   ansible.builtin.shell:
@@ -87,8 +87,10 @@
       source /opt/netbox/venv/bin/activate
       DJANGO_SUPERUSER_PASSWORD={{ nbsuperpass }} python3 \
         /opt/netbox/netbox/manage.py createsuperuser --no-input \
+        --email noreply@localhost.localdomain \
         --username {{ nbsuperuser }}
     executable: /usr/bin/bash
+    timeout: 600
   when: nbinit|bool == true
 
 - name: link netbox housekeeping to cron
