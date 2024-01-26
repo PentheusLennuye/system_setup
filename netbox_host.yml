@@ -5,6 +5,7 @@
     nbver: "{{ lookup('env', 'NETBOX_VERSION') }}"
     nbdbpass: "{{ lookup('env', 'NETBOX_PSQL_PASSWORD') }}"
     nbsecretkey: "{{ lookup('env', 'NETBOX_SECRET_KEY') }}"
+    nbupgrade: "{{ lookup('env', 'NETBOX_UPGRADE') }}"
   roles:
     - common
     - netbox_host
