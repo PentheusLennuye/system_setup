@@ -23,7 +23,6 @@
         name: netbox
         db: netbox
         password: "{{ nbdbpass }}"
-      changed_when: false
 
     - name: grant netbox db ownership
       community.postgresql.postgresql_owner:
@@ -34,4 +33,5 @@
       community.postgresql.postgresql_query:
         db: netbox
         query: GRANT CREATE ON SCHEMA public TO netbox
+      changed_when: false
 

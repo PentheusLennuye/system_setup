@@ -19,6 +19,16 @@
         that:
           - nbsecretkey | length > 0
         fail_msg: 'NETBOX_SECRET_KEY is empty'
+    - name: Sanity check netbox super username
+      assert:
+        that:
+          - nbsuperuser | length > 0
+        fail_msg: 'NETBOX_SUPERUSER is empty'
+    - name: Sanity check netbox superuser password
+      assert:
+        that:
+          - nbsuperpass | length > 0
+        fail_msg: 'NETBOX_SUPERPASS is empty'
 
 - name: Create DBs
   ansible.builtin.include_tasks:

@@ -2,10 +2,13 @@
 # file: netbox_host.yml
 - hosts: netbox_host
   vars:
+    nbinit: "{{ lookup('env', 'NETBOX_INIT') }}"
     nbver: "{{ lookup('env', 'NETBOX_VERSION') }}"
     nbdbpass: "{{ lookup('env', 'NETBOX_PSQL_PASSWORD') }}"
     nbsecretkey: "{{ lookup('env', 'NETBOX_SECRET_KEY') }}"
     nbupgrade: "{{ lookup('env', 'NETBOX_UPGRADE') }}"
+    nbsuperpass: "{{ lookup('env', 'NETBOX_SUPERPASS') }}"
+    nbsuperuser: "{{ lookup('env', 'NETBOX_SUPERUSER') }}"
   roles:
     - common
     - netbox_host
