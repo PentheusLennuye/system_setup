@@ -107,3 +107,12 @@
     name: "{{ item }}"
   loop:
     - fortune
+
+- name: Install local cert and trust it
+  become: yes
+  ansible.builtin.copy:
+    src: ca.cummings-online.crt
+    dest: /usr/local/share/ca-certificates
+    mode: '0644'
+  notify: update ca certs
+
