@@ -1,0 +1,33 @@
+---
+- name: Gunicorn for Netbox
+  become: true
+  block:
+    - name: configure gunicorn
+      ansible.builtin.copy:
+        src: /opt/netbox/contrib/gunicorn.py
+        dest: /opt/netbox/gunicorn.py
+        remote_src: true
+
+    - name: configure systemd
+      ansible.builtin.copy:
+        src: "/opt/netbox/contrib/{{ item }}.service"
+        dest: /etc/systemd/system/
+        remote_src: true
+      notify:
+        - systemd daemon reload netbox
+      loop:
+        - netbox
+        - netbox-housekeeping
+        - netbox-rq
+
+    - meta: flush_handlers
+
+    - name: gunicorn service running
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      loop:
+        - netbox
+        - netbox-rq
+

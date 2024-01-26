@@ -1,0 +1,42 @@
+---
+- name: Nginx Block
+  become: true
+  block:
+    - name: install nginx
+      ansible.builtin.package:
+        name: nginx
+
+    - name: copy nginx configuration
+      ansible.builtin.template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/sites-available/netbox
+      notify: restart nginx
+
+    - name: copy host tls key
+      ansible.builtin.copy:
+        src: "{{ nbtlskey }}"
+        dest: /etc/ssl/private/netbox.key
+        mode: '0600'
+      notify: restart nginx
+
+    - name: copy host tls certificate
+      ansible.builtin.copy:
+        src: "{{ nbtlscrt }}"
+        dest: /etc/ssl/certs/netbox.crt
+        mode: '0644'
+      notify: restart nginx
+
+    - name: link netbox website
+      ansible.builtin.file:
+        src: /etc/nginx/sites-available/netbox
+        dest: /etc/nginx/sites-enabled/default
+        state: link
+      notify: restart nginx
+
+    - meta: flush_handlers
+
+    - name: ensure nginx is running
+      ansible.builtin.service:
+        name: nginx
+        enabled: true
+        state: started

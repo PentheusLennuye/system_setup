@@ -1,45 +1,31 @@
 ---
-- name: Sanity checks
+- name: Sanity Checks
+  ansible.builtin.include_tasks:
+    file: sanity.yml
+    apply:
+      tags:
+        - netbox
+        - netbox-db
+        - netbox-app
+        - netbox-gunicorn
+        - netbox-webserver
   tags:
-    - db
     - netbox
-  block:
-    - name: Sanity check netbox password
-      assert:
-        that:
-          - nbdbpass | length > 0
-        fail_msg: 'NETBOX_PSQL_PASSWORD is empty'
-    - name: Sanity check netbox version
-      assert:
-        that:
-          - nbver | length > 0
-        fail_msg: 'NETBOX_VERSION is empty'
-    - name: Sanity check netbox secret key
-      assert:
-        that:
-          - nbsecretkey | length > 0
-        fail_msg: 'NETBOX_SECRET_KEY is empty'
-    - name: Sanity check netbox super username
-      assert:
-        that:
-          - nbsuperuser | length > 0
-        fail_msg: 'NETBOX_SUPERUSER is empty'
-    - name: Sanity check netbox superuser password
-      assert:
-        that:
-          - nbsuperpass | length > 0
-        fail_msg: 'NETBOX_SUPERPASS is empty'
+    - netbox-db
+    - netbox-app
+    - netbox-gunicorn
+    - netbox-webserver
 
 - name: Create DBs
   ansible.builtin.include_tasks:
     file: db.yml
     apply:
       tags:
-        - db
         - netbox
+        - netbox-db
   tags:
-    - db
     - netbox
+    - netbox-db
 
 - name: Install and Configure Netbox
   ansible.builtin.include_tasks:
@@ -47,6 +33,29 @@
     apply:
       tags:
         - netbox
+        - netbox-app
   tags:
     - netbox
+    - netbox-app
 
+- name: Install and Configure gUnicorn
+  ansible.builtin.include_tasks:
+    file: gunicorn.yml
+    apply:
+      tags:
+        - netbox
+        - netbox-gunicorn
+  tags:
+    - netbox
+    - netbox-gunicorn
+
+- name: Install and Configure Nginx
+  ansible.builtin.include_tasks:
+    file: nginx.yml
+    apply:
+      tags:
+        - netbox
+        - netbox-webserver
+  tags:
+    - netbox
+    - netbox-webserver

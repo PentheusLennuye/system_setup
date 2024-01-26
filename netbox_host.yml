@@ -9,6 +9,9 @@
     nbupgrade: "{{ lookup('env', 'NETBOX_UPGRADE') }}"
     nbsuperpass: "{{ lookup('env', 'NETBOX_SUPERPASS') }}"
     nbsuperuser: "{{ lookup('env', 'NETBOX_SUPERUSER') }}"
+    nbtlscrt: "{{ lookup('env', 'NETBOX_TLS_CRTPATH') }}"
+    nbtlskey: "{{ lookup('env', 'NETBOX_TLS_KEYPATH') }}"
+
   roles:
     - common
     - netbox_host

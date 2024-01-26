@@ -1,0 +1,36 @@
+---
+- name: Sanity check netbox password
+  assert:
+    that:
+      - nbdbpass | length > 0
+    fail_msg: 'NETBOX_PSQL_PASSWORD is empty'
+- name: Sanity check netbox version
+  assert:
+    that:
+      - nbver | length > 0
+    fail_msg: 'NETBOX_VERSION is empty'
+- name: Sanity check netbox secret key
+  assert:
+    that:
+      - nbsecretkey | length > 0
+    fail_msg: 'NETBOX_SECRET_KEY is empty'
+- name: Sanity check netbox super username
+  assert:
+    that:
+      - nbsuperuser | length > 0
+    fail_msg: 'NETBOX_SUPERUSER is empty'
+- name: Sanity check netbox superuser password
+  assert:
+    that:
+      - nbsuperpass | length > 0
+    fail_msg: 'NETBOX_SUPERPASS is empty'
+- name: Sanity check netbox tls key
+  assert:
+    that:
+      - nbtlskey | length > 0
+    fail_msg: 'NETBOX_TLS_KEYPATH is empty'
+- name: Sanity check netbox tls cert
+  assert:
+    that:
+      - nbtlscrt | length > 0
+    fail_msg: 'NETBOX_TLS_CERTPATH is empty'
