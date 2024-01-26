@@ -1,0 +1,5 @@
+---
+- name: update ca certs
+  become: yes
+  ansible.builtin.command: /usr/sbin/update-ca-certificates
+
