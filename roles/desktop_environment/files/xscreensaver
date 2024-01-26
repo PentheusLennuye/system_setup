@@ -1,9 +1,9 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-settings 6.06 for gmc on Thu Jan 25 11:13:16 2024.
+# Written by xscreensaver-settings 6.06 for gmc on Thu Jan 25 19:35:59 2024.
 # https://www.jwz.org/xscreensaver/
 
 timeout:	0:05:00
-cycle:		0:05:00
+cycle:		0:10:00
 lock:		True
 lockTimeout:	0:10:00
 passwdTimeout:	0:00:30
@@ -28,8 +28,8 @@ grabVideoFrames:    False
 chooseRandomImages: False
 imageDirectory:	
 
-mode:		one
-selected:	89
+mode:		random
+selected:	-1
 
 textMode:	url
 textLiteral:	XScreenSaver
@@ -37,7 +37,7 @@ textFile:
 textProgram:	fortune
 textURL:	https://planet.debian.org/rss20.xml
 dialogTheme:	default
-settingsGeom:	688,10 -1,-1
+settingsGeom:	965,10 -1,-1
 
 programs:								      \
 				maze --root				    \n\

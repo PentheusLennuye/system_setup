@@ -186,3 +186,9 @@
     - picom/picom.conf
     - pomodoro.ini
     - starship.toml
+
+- name: Set up screensaver
+  ansible.builtin.copy:
+    src: xscreensaver
+    dest: "{{ ansible_env.HOME }}/.xscreensaver"
+    mode: '0644'
