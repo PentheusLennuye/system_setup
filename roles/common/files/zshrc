@@ -13,6 +13,9 @@ export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
+# Virtual Machines
+export LIBVIRT_DEFAULT_URI=qemu:///system
+
 # ZSH History substrings
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
