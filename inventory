@@ -2,7 +2,7 @@
 glaucus ansible_connection=local
 
 [desktop]
-sisyphus ansible_connection=local
+#sisyphus ansible_connection=local # Now on NixOS
 
 [vm_baseline]
 debian-common

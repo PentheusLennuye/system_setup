@@ -90,7 +90,6 @@
         --email noreply@localhost.localdomain \
         --username {{ nbsuperuser }}
     executable: /usr/bin/bash
-    timeout: 600
   when: nbinit|bool == true
 
 - name: link netbox housekeeping to cron
